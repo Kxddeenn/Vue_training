@@ -1,61 +1,81 @@
 <template>
-    <div class="backdrop" @click="closeModal">
-        <div class="modal" :class="{sale: theme === 'sale'}">
-            <h1>{{ header }}</h1>
-            <p> {{ text }}</p>
-        </div>
+  <div class="backdrop" @click.self="closeModal">
+    <div class="modal" :class="{ sale: theme === 'sale' }">
+      <slot>Default content</slot>
+      <div class="actions">
+        <slot name="links"></slot>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    props: ['header', 'text', 'theme'],
+  props: ["theme"],
 
-    methods: {
-        closeModal() {
-            this.$emit('close')
-        }
-    }
-}
-
-
+  methods: {
+    closeModal() {
+      this.$emit("close");
+    },
+  },
+};
 </script>
 
-<style scoped> /* Scoped only applies to this component */
+<style scoped>
+/* Scoped only applies to this component */
 
-.modal{
-    width: 400px;
-    padding: 20px;
-    margin: 100px auto;
-    background: white;
-    border-radius: 10px;
+.modal {
+  width: 400px;
+  padding: 20px;
+  margin: 100px auto;
+  background: white;
+  border-radius: 10px;
 }
 
 .backdrop {
-    top: 0;
-    position: fixed;
-    background: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
+  top: 0;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
 }
 
 .modal h1 {
-    color: #03cfb4;
+  color: #03cfb4;
 }
 
 .modal.sale {
-    background: crimson;
-    color: white;
+  background: crimson;
+  color: white;
 }
 
 .modal.sale h1 {
-    color: white;
+  color: white;
 }
 
 .modal.sale p {
-    font-style: normal;
+  font-style: normal;
 }
 
+.modal.sale .actions {
+    color: white;
+}
 
+.modal.sale .actions a {
+    color: white;
+}
 
+.modal .actions {
+  text-align: center;
+  margin: 30px 0 10px 0;
+}
+
+.modal .actions a {
+  color: #333;
+  padding: 8px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 10px;
+}
 </style>
